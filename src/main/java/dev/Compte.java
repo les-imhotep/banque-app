@@ -1,3 +1,5 @@
+package dev;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,14 +11,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "COMPTE")
-
 public class Compte {
+
 	@Id
 	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,10 +28,6 @@ public class Compte {
 
 	@Column(name = "SOLDE")
 	private double solde;
-
-	@ManyToOne
-	@JoinColumn(name = "NOM_BANQUE")
-	private Banque banque;
 
 	@ManyToMany
 	@JoinTable(name = "COMPTE_CLIENT",
@@ -45,11 +42,7 @@ public class Compte {
 	private List<Client> clients;
 
 	@OneToMany(mappedBy = "compte")
-	private List<Operation> operations;
-
-	public Compte() {
-		operations = new ArrayList<Operation>();
-	}
+	private List<Operation> operations = new ArrayList<Operation>();
 
 	public int getId() {
 		return id;
@@ -75,19 +68,11 @@ public class Compte {
 		this.solde = solde;
 	}
 
-	public Banque getBanque() {
-		return banque;
-	}
-
-	public void setBanque(Banque banque) {
-		this.banque = banque;
-	}
-
 	public List<Operation> getOperations() {
 		return operations;
 	}
 
-	public void setOperations(ArrayList<Operation> operations) {
+	public void setOperations(List<Operation> operations) {
 		this.operations = operations;
 	}
 
@@ -95,14 +80,14 @@ public class Compte {
 		return clients;
 	}
 
-	public void setClients(ArrayList<Client> clients) {
+	public void setClients(List<Client> clients) {
 		this.clients = clients;
 	}
 
 	@Override
 	public String toString() {
-		return "Compte [id=" + id + ", numero=" + numero + ", solde=" + solde + ", banque=" + banque + ", operations="
-				+ operations + ", clients=" + clients + "]";
+		return "Compte [id=" + id + ", numero=" + numero + ", solde=" + solde + ", operations=" + operations
+				+ ", clients=" + clients + "]";
 	}
 
 }

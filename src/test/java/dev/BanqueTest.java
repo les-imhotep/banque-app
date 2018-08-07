@@ -1,6 +1,8 @@
+package dev;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -25,42 +27,48 @@ public class BanqueTest {
 
 	@Test
 	public void test() {
+
+		// Banque
 		Banque banque = new Banque();
-		Client client = new Client();
-		Compte compte = new Compte();
-		Adresse adresse = new Adresse();
-		Operation operation = new Operation();
-
-		ArrayList<Operation> operations = new ArrayList<Operation>();
-		ArrayList<Client> clients = new ArrayList<Client>();
-
-		clients.add(client);
-		operations.add(operation);
-
-		// Ajout des propriétés d'une opération
-		operation.setCompte(compte);
-		operation.setDate(LocalDateTime.now());
-		operation.setMontant(1000);
-		operation.setMotif("oui");
-		// Ajout des propriétés d'une banque
 		banque.setNom("CIC");
-		// Ajout des propriétés d'une adresse
+
+		// Adresse
+		Adresse adresse = new Adresse();
 		adresse.setNumero(35);
 		adresse.setCodePostal(45100);
 		adresse.setRue("de la vache");
 		adresse.setVille("muette");
-		// Ajout des propriétés d'un compte
-		compte.setBanque(banque);
-		compte.setNumero("151331");
-		compte.setOperations(operations);
-		compte.setClients(clients);
-		compte.setSolde(150);
-		// Ajout des propriétés d'un client
+
+		// Client
+		Client client = new Client();
+		client.setBanque(banque);
 		client.setAdresse(adresse);
 		client.setDateNaissance(LocalDate.now());
 		client.setNom("OUIn");
 		client.setPrenom("Jean");
+
+		// Compte
+		Compte compte = new Compte();
+		compte.setNumero("151331");
+
+		compte.setClients(Arrays.asList(client));
+		compte.setSolde(150);
+
+		// Opération
+		Operation operation = new Operation();
+		operation.setCompte(compte);
+		operation.setDate(LocalDateTime.now());
+		operation.setMontant(1000);
+		operation.setMotif("oui");
+
+		compte.setOperations(Arrays.asList(operation));
+
+		// Ajout des propriétés d'une opération
+
+		// Ajout des propriétés d'un compte
+
 		System.out.println(banque);
+
 		// On met à jour la bdd
 		EntityTransaction transaction = this.em.getTransaction();
 		transaction.begin();

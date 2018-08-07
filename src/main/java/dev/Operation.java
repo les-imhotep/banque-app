@@ -1,3 +1,5 @@
+package dev;
+
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -11,20 +13,19 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "OPERATION")
-
 public class Operation {
 	@Id
 	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+
 	@Column(name = "DATE")
-
 	private LocalDateTime date;
+
 	@Column(name = "MONTANT")
-
 	private double montant;
-	@Column(name = "MOTIF")
 
+	@Column(name = "MOTIF")
 	private String motif;
 
 	@ManyToOne

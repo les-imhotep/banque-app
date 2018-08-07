@@ -1,32 +1,22 @@
+package dev;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Table;
 
 @Embeddable
-@Table(name = "ADRESSE")
-
 public class Adresse {
 
-	// @Column(name = "ID")
-	// @GeneratedValue(strategy = GenerationType.IDENTITY)
-	// private int id;
 	@Column(name = "NUMERO")
-
 	private int numero;
+
 	@Column(name = "RUE")
 	private String rue;
-	@Column(name = "CPDE_POSTAL")
+
+	@Column(name = "CODE_POSTAL")
 	private int codePostal;
+
 	@Column(name = "VILLE")
 	private String Ville;
-
-	// public int getId() {
-	// return id;
-	// }
-	//
-	// public void setId(int id) {
-	// this.id = id;
-	// }
 
 	public int getNumero() {
 		return numero;

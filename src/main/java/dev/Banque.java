@@ -1,3 +1,5 @@
+package dev;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +13,6 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "BANQUE")
-
 public class Banque {
 	@Id
 	@Column(name = "ID")
@@ -21,11 +22,7 @@ public class Banque {
 	private String nom;
 
 	@OneToMany(mappedBy = "banque")
-	private List<Compte> comptes;
-
-	public Banque() {
-		comptes = new ArrayList<Compte>();
-	}
+	private List<Client> clients = new ArrayList<Client>();
 
 	public int getId() {
 		return id;
@@ -43,17 +40,17 @@ public class Banque {
 		this.nom = nom;
 	}
 
-	public List<Compte> getComptes() {
-		return comptes;
+	public List<Client> getClients() {
+		return clients;
 	}
 
-	public void setComptes(List<Compte> comptes) {
-		this.comptes = comptes;
+	public void setClients(List<Client> clients) {
+		this.clients = clients;
 	}
 
 	@Override
 	public String toString() {
-		return "Banque [id=" + id + ", nom=" + nom + ", comptes=" + comptes + "]";
+		return "Banque [id=" + id + ", nom=" + nom + ", clients=" + clients + "]";
 	}
 
 }
