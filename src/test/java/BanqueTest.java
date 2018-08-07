@@ -17,9 +17,8 @@ public class BanqueTest {
 
 	@Before
 	public void setUp() {
+		// Ouverture de la connexion
 		emf = Persistence.createEntityManagerFactory("banque-app");
-		// Etape 2 => Demander à l'usine une session
-		// => L'usine fournit une instance d'EntityManager (session de travail)
 		em = emf.createEntityManager();
 
 	}
@@ -31,29 +30,33 @@ public class BanqueTest {
 		Compte compte = new Compte();
 		Adresse adresse = new Adresse();
 		Operation operation = new Operation();
+
 		ArrayList<Operation> operations = new ArrayList<Operation>();
 		ArrayList<Client> clients = new ArrayList<Client>();
 
-		// Création d'une opération
+		clients.add(client);
+		operations.add(operation);
+
+		// Ajout des propriétés d'une opération
 		operation.setCompte(compte);
 		operation.setDate(LocalDateTime.now());
 		operation.setMontant(1000);
 		operation.setMotif("oui");
-		operations.add(operation);
+		// Ajout des propriétés d'une banque
 		banque.setNom("CIC");
-		client.setAdresse(adresse);
-		// Création d'une adresse
+		// Ajout des propriétés d'une adresse
 		adresse.setNumero(35);
 		adresse.setCodePostal(45100);
 		adresse.setRue("de la vache");
 		adresse.setVille("muette");
-		// Création d'un compte
+		// Ajout des propriétés d'un compte
 		compte.setBanque(banque);
 		compte.setNumero("151331");
 		compte.setOperations(operations);
 		compte.setClients(clients);
 		compte.setSolde(150);
-		// Création d'un client
+		// Ajout des propriétés d'un client
+		client.setAdresse(adresse);
 		client.setDateNaissance(LocalDate.now());
 		client.setNom("OUIn");
 		client.setPrenom("Jean");
@@ -72,6 +75,7 @@ public class BanqueTest {
 
 	@After
 	public void cleanUp() {
+		// Fermeture de la connexion
 		em.close();
 		emf.close();
 	}
